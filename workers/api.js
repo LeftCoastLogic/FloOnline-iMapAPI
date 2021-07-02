@@ -593,9 +593,9 @@ const init = async () => {
                 if (results && results.length === 0) {
                     return [];
                 }
-                const currUnix = Date.now() / 1000;
+                const currUnix = moment.unix(Date.now() / 1000);
                 const inactiveAccounts = results.filter(r => !r.lastActive || (r.lastActive &&
-                    moment.unix(r.lastActive / 1000).diff(moment.unix(currUnix), 'days') >= duration))
+                    currUnix.diff(moment.unix(r.lastActive / 1000), 'days') >= duration))
                     .map(a => a.account);
                 return inactiveAccounts;
             } catch (err) {
